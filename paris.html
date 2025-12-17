@@ -616,7 +616,7 @@
 
         dayData.steps.forEach((step, idx) => {
             const locData = locations[step.loc] || {};
-            const googleMapUrl = locData.lat ? `https://www.google.com/maps/search/?api=1&query=${locData.lat},${locData.lng}` : '#';
+            const googleMapUrl = locData.lat ? `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(locData.title + ', Paris, France')}` : '#';
             const isHome = step.loc === 'home';
 
             // Render Timeline Item
