@@ -1,0 +1,503 @@
+/* ===================================================
+   Europe Trip - Shared Styles
+   =================================================== */
+
+:root {
+    /* French Theme */
+    --fr-blue: #002654;
+    --fr-white: #FFFFFF;
+    --fr-red: #CE1126;
+    
+    /* Swiss Theme */
+    --ch-red: #FF0000;
+    --ch-white: #FFFFFF;
+    
+    /* Italian Theme */
+    --it-green: #008C45;
+    --it-white: #F4F5F0;
+    --it-red: #CD212A;
+    
+    /* Common */
+    --gold: #D4AF37;
+    --cream: #FDF8F3;
+    --text-dark: #1a1a2e;
+    --text-muted: #6b7280;
+}
+
+* { box-sizing: border-box; }
+
+body { 
+    margin: 0; 
+    font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, sans-serif; 
+    background: var(--cream); 
+    color: var(--text-dark); 
+}
+
+/* ===== Header Styles ===== */
+header { 
+    color: white; 
+    padding: 20px 24px; 
+    text-align: center; 
+    position: relative;
+    overflow: hidden;
+}
+
+header h1 { 
+    margin: 0; 
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; 
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+header h1 span { color: var(--gold); }
+
+header p { 
+    margin: 8px 0 0; 
+    font-size: 0.85rem; 
+    opacity: 0.85;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+header p::before, header p::after {
+    content: '✦';
+    color: var(--gold);
+    font-size: 0.6rem;
+}
+
+/* Country flag top border */
+header.france { background: linear-gradient(135deg, var(--fr-blue) 0%, #0a1628 100%); }
+header.france::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--fr-blue) 33%, var(--fr-white) 33% 66%, var(--fr-red) 66%);
+}
+
+header.switzerland { background: linear-gradient(135deg, #c41e3a 0%, #8B0000 100%); }
+header.switzerland::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: var(--ch-red);
+}
+
+header.italy { background: linear-gradient(135deg, #1a472a 0%, #0d2818 100%); }
+header.italy::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--it-green) 33%, var(--it-white) 33% 66%, var(--it-red) 66%);
+}
+
+/* ===== Day Selector ===== */
+.day-selector { 
+    display: flex; 
+    overflow-x: auto; 
+    background: white; 
+    padding: 14px 20px; 
+    gap: 12px; 
+    border-bottom: 1px solid #e5e7eb;
+    scrollbar-width: none;
+}
+.day-selector::-webkit-scrollbar { display: none; }
+
+.day-btn { 
+    flex: 0 0 auto; 
+    padding: 10px 20px; 
+    border: 2px solid #e5e7eb; 
+    border-radius: 25px; 
+    background: white; 
+    cursor: pointer; 
+    font-size: 0.9rem; 
+    font-weight: 500;
+    transition: all 0.3s ease; 
+    white-space: nowrap; 
+    color: var(--text-dark);
+    font-family: inherit;
+}
+.day-btn:hover { border-color: var(--text-dark); background: #f8fafc; }
+.day-btn.active { color: white; box-shadow: 0 4px 12px rgba(0,0,0,0.15); }
+
+/* Country-specific active states */
+.france .day-btn.active { background: var(--fr-blue); border-color: var(--fr-blue); }
+.switzerland .day-btn.active { background: var(--ch-red); border-color: var(--ch-red); }
+.italy .day-btn.active { background: var(--it-green); border-color: var(--it-green); }
+
+/* ===== Main Container ===== */
+.container { display: flex; flex: 1; overflow: hidden; }
+
+/* ===== Sidebar ===== */
+.sidebar { 
+    width: 420px; 
+    overflow-y: auto; 
+    background: linear-gradient(180deg, #fefefe 0%, var(--cream) 100%);
+    padding: 24px; 
+    border-right: 1px solid #e5e7eb;
+}
+
+.day-header { 
+    padding-bottom: 16px; 
+    margin-bottom: 20px;
+    border-bottom: 2px solid var(--gold);
+    position: relative;
+}
+.day-header::after {
+    content: '⚜';
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--cream);
+    padding: 0 10px;
+    color: var(--gold);
+    font-size: 1rem;
+}
+.day-header h2 { 
+    margin: 0; 
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem; 
+    color: var(--fr-blue);
+    font-weight: 700;
+}
+.day-header span { 
+    font-size: 0.95rem; 
+    color: var(--text-muted);
+    display: block;
+    margin-top: 4px;
+}
+
+/* ===== Timeline ===== */
+.timeline-wrapper { 
+    position: relative; 
+    padding-left: 50px;
+    margin-bottom: 8px;
+}
+.timeline-wrapper::before { 
+    content: ''; 
+    position: absolute; 
+    left: 18px; 
+    top: 40px; 
+    bottom: -12px; 
+    width: 2px; 
+    background: linear-gradient(180deg, var(--gold) 0%, #e5e7eb 100%);
+}
+.timeline-wrapper:last-child::before { display: none; }
+
+.step-number { 
+    position: absolute; 
+    left: 0; 
+    top: 16px; 
+    width: 38px; 
+    height: 38px; 
+    background: linear-gradient(135deg, var(--fr-blue) 0%, #1a365d 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 1rem;
+    box-shadow: 0 3px 8px rgba(0, 38, 84, 0.3);
+    z-index: 2;
+}
+
+.timeline-item { 
+    background: white;
+    border-radius: 16px; 
+    padding: 18px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+    border: 1px solid #f1f5f9;
+    transition: all 0.3s ease;
+}
+.timeline-item:hover { 
+    transform: translateX(4px);
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    border-color: var(--gold);
+}
+
+.time-badge { 
+    display: inline-block; 
+    background: linear-gradient(135deg, var(--fr-red) 0%, #b91c1c 100%);
+    color: white;
+    padding: 4px 12px; 
+    border-radius: 20px; 
+    font-size: 0.8rem; 
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.location-title { 
+    font-size: 1.15rem; 
+    font-weight: 700; 
+    margin: 0 0 8px 0; 
+    color: var(--text-dark);
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.desc { 
+    font-size: 0.9rem; 
+    color: var(--text-muted); 
+    line-height: 1.6;
+}
+
+/* ===== Tags ===== */
+.tags { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+.tag { 
+    font-size: 0.7rem; 
+    padding: 3px 10px; 
+    border-radius: 12px; 
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+.tag.transport { background: #dbeafe; color: #1e40af; }
+.tag.logistic { background: #f3e8ff; color: #7c3aed; }
+.tag.visit { background: #fef3c7; color: #b45309; }
+.tag.highlight { background: #fce7f3; color: #be185d; }
+.tag.food { background: #fed7aa; color: #c2410c; }
+.tag.rest { background: #d1fae5; color: #047857; }
+.tag.shopping { background: #cffafe; color: #0e7490; }
+.tag.photo { background: #ede9fe; color: #6d28d9; }
+
+/* ===== Transit Info ===== */
+.transit-info {
+    margin-top: 14px;
+    padding: 12px 14px;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    border-radius: 10px;
+    border-left: 3px solid var(--gold);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.transit-icon { font-size: 1.2rem; }
+
+/* ===== Navigation Button ===== */
+.maps-btn {
+    text-decoration: none; 
+    background: white;
+    color: var(--fr-blue);
+    border: 1.5px solid var(--fr-blue);
+    padding: 5px 12px; 
+    border-radius: 20px; 
+    font-size: 0.75rem; 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 4px;
+    font-weight: 600;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+.maps-btn:hover { 
+    background: var(--fr-blue); 
+    color: white;
+}
+
+/* ===== Map ===== */
+#map { flex: 1; height: 100%; }
+
+/* ===== Custom Map Markers ===== */
+.numbered-marker {
+    background: linear-gradient(135deg, var(--fr-blue) 0%, #1a365d 100%);
+    color: white;
+    border-radius: 50%;
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 14px;
+    border: 3px solid white;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    font-family: 'Noto Sans TC', sans-serif;
+}
+.numbered-marker.home-marker {
+    background: linear-gradient(135deg, var(--fr-red) 0%, #991b1b 100%);
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+}
+
+/* Leaflet Popup */
+.leaflet-popup-content-wrapper {
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+.leaflet-popup-content {
+    margin: 12px 16px;
+    font-family: 'Noto Sans TC', sans-serif;
+}
+.popup-title {
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--fr-blue);
+    margin-bottom: 4px;
+}
+.popup-time {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+.popup-number {
+    display: inline-block;
+    background: var(--fr-blue);
+    color: white;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 22px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    margin-right: 6px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 900px) {
+    .container { flex-direction: column-reverse; }
+    .sidebar { width: 100%; height: 55%; }
+    #map { height: 45%; }
+    header h1 { font-size: 1.3rem; }
+}
+
+/* ===== Homepage Styles ===== */
+.homepage {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+    color: white;
+    display: flex;
+    flex-direction: column;
+}
+
+.hero {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin: 0 0 10px;
+    letter-spacing: 4px;
+}
+
+.hero .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.8;
+    margin-bottom: 50px;
+}
+
+.countries-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: 1000px;
+    width: 100%;
+    padding: 0 20px;
+}
+
+.country-card {
+    background: rgba(255,255,255,0.05);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    padding: 30px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.4s ease;
+    border: 1px solid rgba(255,255,255,0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.country-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+}
+
+.country-card.france::before {
+    background: linear-gradient(90deg, var(--fr-blue) 33%, var(--fr-white) 33% 66%, var(--fr-red) 66%);
+}
+.country-card.switzerland::before {
+    background: var(--ch-red);
+}
+.country-card.italy::before {
+    background: linear-gradient(90deg, var(--it-green) 33%, var(--it-white) 33% 66%, var(--it-red) 66%);
+}
+
+.country-card:hover {
+    transform: translateY(-10px);
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+}
+
+.country-card .flag {
+    font-size: 3rem;
+    margin-bottom: 15px;
+}
+
+.country-card h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    margin: 0 0 8px;
+}
+
+.country-card .dates {
+    font-size: 0.9rem;
+    opacity: 0.7;
+    margin-bottom: 15px;
+}
+
+.country-card .cities {
+    font-size: 0.85rem;
+    opacity: 0.6;
+}
+
+.country-card.coming-soon {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+.country-card.coming-soon::after {
+    content: 'COMING SOON';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(-15deg);
+    background: var(--gold);
+    color: #1a1a2e;
+    padding: 8px 20px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    border-radius: 4px;
+}
+
+.footer-home {
+    text-align: center;
+    padding: 30px;
+    font-size: 0.85rem;
+    opacity: 0.5;
+}
+

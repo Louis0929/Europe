@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Europe Trip 2024 ✈️</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        /* Additional homepage animations */
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+        .hero h1 { animation: float 4s ease-in-out infinite; }
+        .star {
+            position: absolute;
+            color: var(--gold);
+            animation: twinkle 2s ease-in-out infinite;
+        }
+        .star:nth-child(1) { top: 15%; left: 10%; animation-delay: 0s; }
+        .star:nth-child(2) { top: 25%; right: 15%; animation-delay: 0.5s; }
+        .star:nth-child(3) { top: 60%; left: 8%; animation-delay: 1s; }
+        .star:nth-child(4) { top: 70%; right: 10%; animation-delay: 1.5s; }
+        .star:nth-child(5) { top: 40%; left: 20%; animation-delay: 0.3s; font-size: 0.8rem; }
+        .star:nth-child(6) { top: 50%; right: 25%; animation-delay: 0.8s; font-size: 0.8rem; }
+        
+        .trip-stats {
+            display: flex;
+            gap: 40px;
+            margin-top: 40px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        .stat {
+            text-align: center;
+        }
+        .stat-number {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            opacity: 0.7;
+            margin-top: 4px;
+        }
+
+        .route-line {
+            max-width: 800px;
+            margin: 50px auto 30px;
+            padding: 0 20px;
+        }
+        .route-line h3 {
+            text-align: center;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+        .route {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .route-stop {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        .route-arrow {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body class="homepage">
+
+<!-- Decorative Stars -->
+<span class="star">✦</span>
+<span class="star">✦</span>
+<span class="star">✦</span>
+<span class="star">✦</span>
+<span class="star">✧</span>
+<span class="star">✧</span>
+
+<div class="hero">
+    <h1>🎄 EUROPE 2024</h1>
+    <p class="subtitle">Christmas & New Year Adventure</p>
+
+    <div class="trip-stats">
+        <div class="stat">
+            <div class="stat-number">3</div>
+            <div class="stat-label">國家</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">12</div>
+            <div class="stat-label">天數</div>
+        </div>
+        <div class="stat">
+            <div class="stat-number">8+</div>
+            <div class="stat-label">城市</div>
+        </div>
+    </div>
+
+    <div class="route-line">
+        <h3>✈️ 旅程路線</h3>
+        <div class="route">
+            <span class="route-stop">🇭🇰 香港</span>
+            <span class="route-arrow">→</span>
+            <span class="route-stop">🇫🇷 巴黎</span>
+            <span class="route-arrow">→</span>
+            <span class="route-stop">🇨🇭 瑞士</span>
+            <span class="route-arrow">→</span>
+            <span class="route-stop">🇮🇹 意大利</span>
+            <span class="route-arrow">→</span>
+            <span class="route-stop">🇭🇰 香港</span>
+        </div>
+    </div>
+
+    <div class="countries-grid">
+        <!-- France -->
+        <a href="france/paris.html" class="country-card france">
+            <div class="flag">🇫🇷</div>
+            <h2>France</h2>
+            <div class="dates">Dec 24 - 29, 2024</div>
+            <div class="cities">巴黎 · 凡爾賽 · 迪士尼</div>
+        </a>
+
+        <!-- Switzerland -->
+        <div class="country-card switzerland coming-soon">
+            <div class="flag">🇨🇭</div>
+            <h2>Switzerland</h2>
+            <div class="dates">Dec 29 - Jan 1, 2025</div>
+            <div class="cities">蘇黎世 · 琉森 · 因特拉肯</div>
+        </div>
+
+        <!-- Italy -->
+        <div class="country-card italy coming-soon">
+            <div class="flag">🇮🇹</div>
+            <h2>Italy</h2>
+            <div class="dates">Jan 1 - 4, 2025</div>
+            <div class="cities">米蘭 · 威尼斯 · 佛羅倫斯</div>
+        </div>
+    </div>
+</div>
+
+<footer class="footer-home">
+    Made with ❤️ for an unforgettable journey
+</footer>
+
+</body>
+</html>
