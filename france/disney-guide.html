@@ -1,0 +1,992 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>迪士尼攻略 | Disneyland Paris</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Noto+Sans+TC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --disney-purple: #4B0082;
+            --disney-pink: #FF69B4;
+            --disney-blue: #1E90FF;
+            --disney-gold: #FFD700;
+            --bg: #0a0a1a;
+            --card-bg: rgba(255,255,255,0.05);
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background: var(--bg);
+            color: white;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #1a0a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: '✨';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.5rem;
+            animation: twinkle 2s infinite;
+        }
+        header::after {
+            content: '✨';
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.5rem;
+            animation: twinkle 2s infinite 0.5s;
+        }
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+        
+        .back-link {
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            text-decoration: none;
+            opacity: 0.8;
+            font-size: 0.9rem;
+        }
+        .back-link:hover { opacity: 1; }
+        
+        header h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(90deg, var(--disney-pink), var(--disney-gold), var(--disney-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        header p { opacity: 0.8; font-size: 1rem; }
+
+        /* Main content */
+        main {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 30px 20px;
+        }
+
+        /* Section titles */
+        .section-title {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--disney-gold);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Park Map Section */
+        .park-map {
+            background: var(--card-bg);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .park-tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .park-tab {
+            padding: 12px 24px;
+            border-radius: 25px;
+            border: 2px solid rgba(255,255,255,0.2);
+            background: transparent;
+            color: white;
+            cursor: pointer;
+            font-size: 0.95rem;
+            font-weight: 600;
+            transition: all 0.3s;
+            font-family: inherit;
+        }
+        .park-tab:hover { border-color: var(--disney-pink); }
+        .park-tab.active {
+            background: linear-gradient(135deg, var(--disney-purple), var(--disney-pink));
+            border-color: transparent;
+        }
+
+        .park-content { display: none; }
+        .park-content.active { display: block; }
+
+        /* Land cards grid */
+        .lands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .land-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0.02) 100%);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        .land-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--disney-gold);
+            box-shadow: 0 10px 30px rgba(255,215,0,0.1);
+        }
+
+        .land-icon {
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+        .land-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--disney-gold);
+        }
+        .land-name-en {
+            font-size: 0.85rem;
+            opacity: 0.6;
+            margin-bottom: 12px;
+        }
+        .land-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Rides Section */
+        .rides-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 20px;
+        }
+
+        .ride-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.1);
+            transition: all 0.3s;
+        }
+        .ride-card:hover {
+            transform: scale(1.02);
+            border-color: var(--disney-pink);
+        }
+
+        .ride-header {
+            padding: 20px;
+            display: flex;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        .ride-emoji {
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+        .ride-info { flex: 1; }
+        .ride-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        .ride-location {
+            font-size: 0.8rem;
+            opacity: 0.6;
+            margin-bottom: 8px;
+        }
+        .ride-tags {
+            display: flex;
+            gap: 6px;
+            flex-wrap: wrap;
+        }
+        .ride-tag {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+        .ride-tag.thrill { background: #dc2626; }
+        .ride-tag.family { background: #16a34a; }
+        .ride-tag.must { background: var(--disney-gold); color: #000; }
+        .ride-tag.premier { background: var(--disney-purple); }
+
+        .ride-body {
+            padding: 0 20px 20px;
+        }
+        .ride-desc {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .ride-tips {
+            background: rgba(255,215,0,0.1);
+            padding: 12px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            border-left: 3px solid var(--disney-gold);
+        }
+        .ride-tips strong {
+            color: var(--disney-gold);
+        }
+
+        .thrill-meter {
+            display: flex;
+            gap: 4px;
+            margin-top: 8px;
+        }
+        .thrill-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.2);
+        }
+        .thrill-dot.active { background: #dc2626; }
+
+        /* Photo Spots Section */
+        .photo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .photo-card {
+            background: linear-gradient(135deg, rgba(255,105,180,0.1) 0%, rgba(75,0,130,0.1) 100%);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255,105,180,0.2);
+            transition: all 0.3s;
+        }
+        .photo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(255,105,180,0.15);
+        }
+
+        .photo-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        .photo-icon { font-size: 2rem; }
+        .photo-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+        }
+        .photo-location {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        .photo-poses {
+            background: rgba(0,0,0,0.2);
+            border-radius: 12px;
+            padding: 15px;
+        }
+        .photo-poses h4 {
+            font-size: 0.85rem;
+            color: var(--disney-pink);
+            margin-bottom: 10px;
+        }
+        .pose-list {
+            list-style: none;
+        }
+        .pose-list li {
+            font-size: 0.9rem;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .pose-list li:last-child { border-bottom: none; }
+        .pose-emoji { font-size: 1.1rem; }
+
+        /* Tips Section */
+        .tips-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .tip-card {
+            background: var(--card-bg);
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .tip-icon {
+            font-size: 2rem;
+            margin-bottom: 12px;
+        }
+        .tip-title {
+            font-size: 1rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--disney-gold);
+        }
+        .tip-text {
+            font-size: 0.9rem;
+            opacity: 0.8;
+            line-height: 1.6;
+        }
+
+        /* Christmas Special */
+        .christmas-banner {
+            background: linear-gradient(135deg, #1a472a 0%, #0d2818 100%);
+            border-radius: 20px;
+            padding: 30px;
+            margin-top: 30px;
+            border: 2px solid rgba(255,215,0,0.3);
+            text-align: center;
+        }
+        .christmas-banner h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem;
+            margin-bottom: 15px;
+            color: var(--disney-gold);
+        }
+        .christmas-banner p {
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* Schedule */
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .schedule-table th, .schedule-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .schedule-table th {
+            background: rgba(255,255,255,0.05);
+            font-weight: 600;
+        }
+        .schedule-table tr:hover {
+            background: rgba(255,255,255,0.03);
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            opacity: 0.5;
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.8rem; }
+            .back-link { position: static; transform: none; display: block; margin-bottom: 15px; }
+            .section-title { font-size: 1.4rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <a href="paris.html" class="back-link">← 返回巴黎行程</a>
+    <h1>🏰 Disneyland Paris 攻略</h1>
+    <p>聖誕限定 · 必玩機動遊戲 · 打卡姿勢</p>
+</header>
+
+<main>
+    <!-- Park Map Section -->
+    <h2 class="section-title">🗺️ 樂園地圖分佈</h2>
+    
+    <div class="park-map">
+        <div class="park-tabs">
+            <button class="park-tab active" onclick="showPark('disneyland')">🏰 迪士尼樂園</button>
+            <button class="park-tab" onclick="showPark('studios')">🎬 華特迪士尼影城</button>
+        </div>
+
+        <!-- Disneyland Park -->
+        <div id="disneyland" class="park-content active">
+            <div class="lands-grid">
+                <div class="land-card">
+                    <div class="land-icon">🏛️</div>
+                    <div class="land-name">美國小鎮大街</div>
+                    <div class="land-name-en">Main Street, U.S.A.</div>
+                    <div class="land-desc">入口主街道，兩側滿佈商店同餐廳。聖誕期間會有華麗裝飾同雪景！記得影相打卡。</div>
+                </div>
+                <div class="land-card">
+                    <div class="land-icon">🏰</div>
+                    <div class="land-name">幻想世界</div>
+                    <div class="land-name-en">Fantasyland</div>
+                    <div class="land-desc">睡美人城堡所在地！小飛象、旋轉木馬、小小世界都喺度。最夢幻嘅區域！</div>
+                </div>
+                <div class="land-card">
+                    <div class="land-icon">🏴‍☠️</div>
+                    <div class="land-name">探險世界</div>
+                    <div class="land-name-en">Adventureland</div>
+                    <div class="land-desc">加勒比海盜、印第安納鍾斯過山車。充滿熱帶冒險氣氛！</div>
+                </div>
+                <div class="land-card">
+                    <div class="land-icon">🤠</div>
+                    <div class="land-name">邊域世界</div>
+                    <div class="land-name-en">Frontierland</div>
+                    <div class="land-desc">美國西部主題。Big Thunder Mountain 大雷山喺呢度，必玩！</div>
+                </div>
+                <div class="land-card">
+                    <div class="land-icon">🚀</div>
+                    <div class="land-name">發現世界</div>
+                    <div class="land-name-en">Discoveryland</div>
+                    <div class="land-desc">未來科幻主題。Hyperspace Mountain 星戰過山車必玩！Buzz Lightyear 都喺度。</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Studios Park -->
+        <div id="studios" class="park-content">
+            <div class="lands-grid">
+                <div class="land-card">
+                    <div class="land-icon">🎬</div>
+                    <div class="land-name">荷里活大道</div>
+                    <div class="land-name-en">Front Lot</div>
+                    <div class="land-desc">入口區域，模仿荷里活黃金時代製片廠。打卡影相位！</div>
+                </div>
+                <div class="land-card">
+                    <div class="land-icon">🐭</div>
+                    <div class="land-name">卡通世界</div>
+                    <div class="land-name-en">Toon Studio</div>
+                    <div class="land-desc">Ratatouille 料理鼠王必玩！仲有 Crush's Coaster 海龜過山車。</div>
+                </div>
+                <div class="land-card">
+                    <div class="land-icon">🎭</div>
+                    <div class="land-name">製作庭院</div>
+                    <div class="land-name-en">Production Courtyard</div>
+                    <div class="land-desc">Tower of Terror 驚魂古塔！刺激指數爆錶 💀</div>
+                </div>
+                <div class="land-card">
+                    <div class="land-icon">🎸</div>
+                    <div class="land-name">後場區</div>
+                    <div class="land-name-en">Backlot</div>
+                    <div class="land-desc">Rock 'n' Roller Coaster 搖滾過山車！全園最刺激！</div>
+                </div>
+                <div class="land-card">
+                    <div class="land-icon">🦸</div>
+                    <div class="land-name">復仇者聯盟園區</div>
+                    <div class="land-name-en">Avengers Campus</div>
+                    <div class="land-desc">2022年新開！Spider-Man、Iron Man 主題設施。Marvel 迷必去！</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Must-Do Rides -->
+    <h2 class="section-title">🎢 必玩機動遊戲 TOP 8</h2>
+    
+    <div class="rides-grid">
+        <!-- Hyperspace Mountain -->
+        <div class="ride-card">
+            <div class="ride-header">
+                <div class="ride-emoji">🚀</div>
+                <div class="ride-info">
+                    <div class="ride-name">Hyperspace Mountain</div>
+                    <div class="ride-location">Discoveryland · 迪士尼樂園</div>
+                    <div class="ride-tags">
+                        <span class="ride-tag must">必玩</span>
+                        <span class="ride-tag thrill">刺激</span>
+                        <span class="ride-tag premier">Premier Access</span>
+                    </div>
+                    <div class="thrill-meter">
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="ride-body">
+                <div class="ride-desc">星戰主題室內過山車！全黑環境下穿梭星際，配合音效超震撼。開園就衝呢個！</div>
+                <div class="ride-tips">
+                    <strong>💡 攻略：</strong>開園前30分鐘到，一開門衝去！或者買 Premier Access 免排隊。
+                </div>
+            </div>
+        </div>
+
+        <!-- Big Thunder Mountain -->
+        <div class="ride-card">
+            <div class="ride-header">
+                <div class="ride-emoji">⛰️</div>
+                <div class="ride-info">
+                    <div class="ride-name">Big Thunder Mountain</div>
+                    <div class="ride-location">Frontierland · 迪士尼樂園</div>
+                    <div class="ride-tags">
+                        <span class="ride-tag must">必玩</span>
+                        <span class="ride-tag family">老少咸宜</span>
+                    </div>
+                    <div class="thrill-meter">
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot"></span>
+                        <span class="thrill-dot"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="ride-body">
+                <div class="ride-desc">西部礦山主題過山車！刺激但唔會太恐怖，新手都啱玩。夜晚坐更有氣氛！</div>
+                <div class="ride-tips">
+                    <strong>💡 攻略：</strong>傍晚 5-7pm 人較少。夜景好靚！
+                </div>
+            </div>
+        </div>
+
+        <!-- Crush's Coaster -->
+        <div class="ride-card">
+            <div class="ride-header">
+                <div class="ride-emoji">🐢</div>
+                <div class="ride-info">
+                    <div class="ride-name">Crush's Coaster</div>
+                    <div class="ride-location">Toon Studio · 影城</div>
+                    <div class="ride-tags">
+                        <span class="ride-tag must">必玩</span>
+                        <span class="ride-tag thrill">刺激</span>
+                    </div>
+                    <div class="thrill-meter">
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="ride-body">
+                <div class="ride-desc">海底奇兵主題！龜殼會 360 度旋轉，好好玩！排隊時間成日爆長。</div>
+                <div class="ride-tips">
+                    <strong>💡 攻略：</strong>呢個排隊最長！開園即衝或者黃昏再去。
+                </div>
+            </div>
+        </div>
+
+        <!-- Ratatouille -->
+        <div class="ride-card">
+            <div class="ride-header">
+                <div class="ride-emoji">🐀</div>
+                <div class="ride-info">
+                    <div class="ride-name">Ratatouille: L'Aventure</div>
+                    <div class="ride-location">Toon Studio · 影城</div>
+                    <div class="ride-tags">
+                        <span class="ride-tag must">必玩</span>
+                        <span class="ride-tag family">老少咸宜</span>
+                    </div>
+                    <div class="thrill-meter">
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot"></span>
+                        <span class="thrill-dot"></span>
+                        <span class="thrill-dot"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="ride-body">
+                <div class="ride-desc">變成老鼠視角穿梭廚房！4D 體驗超逼真，會聞到食物香味！</div>
+                <div class="ride-tips">
+                    <strong>💡 攻略：</strong>帶定 3D 眼鏡（會派）。排隊區都好靚，慢慢影相。
+                </div>
+            </div>
+        </div>
+
+        <!-- Tower of Terror -->
+        <div class="ride-card">
+            <div class="ride-header">
+                <div class="ride-emoji">🏚️</div>
+                <div class="ride-info">
+                    <div class="ride-name">Tower of Terror</div>
+                    <div class="ride-location">Production Courtyard · 影城</div>
+                    <div class="ride-tags">
+                        <span class="ride-tag thrill">極度刺激</span>
+                        <span class="ride-tag premier">Premier Access</span>
+                    </div>
+                    <div class="thrill-meter">
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="ride-body">
+                <div class="ride-desc">自由落體跳樓機！巴黎版係 Twilight Zone 主題。心臟弱勿試！</div>
+                <div class="ride-tips">
+                    <strong>💡 攻略：</strong>坐最後一排視野最好！記得唔好食太飽先玩 😂
+                </div>
+            </div>
+        </div>
+
+        <!-- Pirates of the Caribbean -->
+        <div class="ride-card">
+            <div class="ride-header">
+                <div class="ride-emoji">🏴‍☠️</div>
+                <div class="ride-info">
+                    <div class="ride-name">Pirates of the Caribbean</div>
+                    <div class="ride-location">Adventureland · 迪士尼樂園</div>
+                    <div class="ride-tags">
+                        <span class="ride-tag must">經典</span>
+                        <span class="ride-tag family">老少咸宜</span>
+                    </div>
+                    <div class="thrill-meter">
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot"></span>
+                        <span class="thrill-dot"></span>
+                        <span class="thrill-dot"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="ride-body">
+                <div class="ride-desc">經典水上遊船！場景超精細，有 Jack Sparrow 出現！全家啱玩。</div>
+                <div class="ride-tips">
+                    <strong>💡 攻略：</strong>中午人少。有機會濺濕，冬天記得著防水。
+                </div>
+            </div>
+        </div>
+
+        <!-- Avengers Assemble -->
+        <div class="ride-card">
+            <div class="ride-header">
+                <div class="ride-emoji">🦸</div>
+                <div class="ride-info">
+                    <div class="ride-name">Avengers Assemble: Flight Force</div>
+                    <div class="ride-location">Avengers Campus · 影城</div>
+                    <div class="ride-tags">
+                        <span class="ride-tag thrill">刺激</span>
+                        <span class="ride-tag premier">Premier Access</span>
+                    </div>
+                    <div class="thrill-meter">
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="ride-body">
+                <div class="ride-desc">Iron Man 主題過山車！同 Rock 'n' Roller Coaster 軌道一樣但換咗主題。</div>
+                <div class="ride-tips">
+                    <strong>💡 攻略：</strong>Marvel 迷必玩！排隊區有好多 Easter Egg。
+                </div>
+            </div>
+        </div>
+
+        <!-- Spider-Man -->
+        <div class="ride-card">
+            <div class="ride-header">
+                <div class="ride-emoji">🕷️</div>
+                <div class="ride-info">
+                    <div class="ride-name">Spider-Man W.E.B. Adventure</div>
+                    <div class="ride-location">Avengers Campus · 影城</div>
+                    <div class="ride-tags">
+                        <span class="ride-tag family">互動</span>
+                    </div>
+                    <div class="thrill-meter">
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot active"></span>
+                        <span class="thrill-dot"></span>
+                        <span class="thrill-dot"></span>
+                        <span class="thrill-dot"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="ride-body">
+                <div class="ride-desc">用手勢射蜘蛛絲！互動射擊遊戲，小朋友超鍾意。</div>
+                <div class="ride-tips">
+                    <strong>💡 攻略：</strong>可以多玩幾次挑戰高分！
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Photo Spots -->
+    <h2 class="section-title">📸 打卡位 & 拍照姿勢</h2>
+    
+    <div class="photo-grid">
+        <div class="photo-card">
+            <div class="photo-header">
+                <div class="photo-icon">🏰</div>
+                <div>
+                    <div class="photo-title">睡美人城堡</div>
+                    <div class="photo-location">Fantasyland 入口</div>
+                </div>
+            </div>
+            <div class="photo-poses">
+                <h4>推薦姿勢：</h4>
+                <ul class="pose-list">
+                    <li><span class="pose-emoji">👸</span> 公主轉圈裙擺飛揚</li>
+                    <li><span class="pose-emoji">🤴</span> 單膝下跪求婚 pose</li>
+                    <li><span class="pose-emoji">🦋</span> 背對城堡回眸一笑</li>
+                    <li><span class="pose-emoji">🎉</span> 跳躍 + 雙手張開</li>
+                    <li><span class="pose-emoji">💑</span> 情侶牽手望城堡</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="photo-card">
+            <div class="photo-header">
+                <div class="photo-icon">🏛️</div>
+                <div>
+                    <div class="photo-title">美國小鎮大街</div>
+                    <div class="photo-location">Main Street, U.S.A.</div>
+                </div>
+            </div>
+            <div class="photo-poses">
+                <h4>推薦姿勢：</h4>
+                <ul class="pose-list">
+                    <li><span class="pose-emoji">🚶</span> 自然行街 candid shot</li>
+                    <li><span class="pose-emoji">🛍️</span> 拎住迪士尼袋購物 look</li>
+                    <li><span class="pose-emoji">🍦</span> 食雪糕/棉花糖</li>
+                    <li><span class="pose-emoji">🎄</span> 聖誕樹前比心</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="photo-card">
+            <div class="photo-header">
+                <div class="photo-icon">🎠</div>
+                <div>
+                    <div class="photo-title">旋轉木馬</div>
+                    <div class="photo-location">Fantasyland</div>
+                </div>
+            </div>
+            <div class="photo-poses">
+                <h4>推薦姿勢：</h4>
+                <ul class="pose-list">
+                    <li><span class="pose-emoji">🐴</span> 騎馬優雅望鏡頭</li>
+                    <li><span class="pose-emoji">✨</span> 雙手放開 enjoying moment</li>
+                    <li><span class="pose-emoji">😊</span> 開心大笑</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="photo-card">
+            <div class="photo-header">
+                <div class="photo-icon">🐭</div>
+                <div>
+                    <div class="photo-title">米奇米妮合照</div>
+                    <div class="photo-location">各角色見面點</div>
+                </div>
+            </div>
+            <div class="photo-poses">
+                <h4>推薦姿勢：</h4>
+                <ul class="pose-list">
+                    <li><span class="pose-emoji">🤟</span> 比米奇手勢（三隻手指）</li>
+                    <li><span class="pose-emoji">💕</span> 同米妮比愛心</li>
+                    <li><span class="pose-emoji">🤗</span> 攬住影大合照</li>
+                    <li><span class="pose-emoji">😜</span> 做鬼臉互動</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="photo-card">
+            <div class="photo-header">
+                <div class="photo-icon">🍳</div>
+                <div>
+                    <div class="photo-title">Ratatouille 區</div>
+                    <div class="photo-location">Walt Disney Studios</div>
+                </div>
+            </div>
+            <div class="photo-poses">
+                <h4>推薦姿勢：</h4>
+                <ul class="pose-list">
+                    <li><span class="pose-emoji">👨‍🍳</span> 廚師 pose + OK 手勢</li>
+                    <li><span class="pose-emoji">🐀</span> 模仿小米舉雙手</li>
+                    <li><span class="pose-emoji">😋</span> 食嘢表情</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="photo-card">
+            <div class="photo-header">
+                <div class="photo-icon">🦸</div>
+                <div>
+                    <div class="photo-title">Avengers Campus</div>
+                    <div class="photo-location">Walt Disney Studios</div>
+                </div>
+            </div>
+            <div class="photo-poses">
+                <h4>推薦姿勢：</h4>
+                <ul class="pose-list">
+                    <li><span class="pose-emoji">🤟</span> Spider-Man 射絲手勢</li>
+                    <li><span class="pose-emoji">💪</span> Iron Man 飛行 pose</li>
+                    <li><span class="pose-emoji">🛡️</span> Captain America 舉盾</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Christmas Special -->
+    <div class="christmas-banner">
+        <h3>🎄 聖誕節限定體驗</h3>
+        <p>
+            12月25日去迪士尼超正！<br><br>
+            ❄️ 城堡前有「落雪」效果<br>
+            🎅 聖誕老人 Meet & Greet<br>
+            🎶 特別聖誕巡遊 + 歌舞表演<br>
+            🎆 晚上煙花表演有聖誕歌配樂<br>
+            🛍️ 限定聖誕商品（米奇聖誕帽、雪人達菲）<br><br>
+            <strong>煙花時間：約 21:00-21:30</strong>（記得提早霸位！）
+        </p>
+    </div>
+
+    <!-- Tips -->
+    <h2 class="section-title">💡 實用攻略</h2>
+    
+    <div class="tips-grid">
+        <div class="tip-card">
+            <div class="tip-icon">⏰</div>
+            <div class="tip-title">最佳入園時間</div>
+            <div class="tip-text">聖誕節人超多！建議開園前 30 分鐘到。一開門衝 Crush's Coaster 或 Hyperspace Mountain。</div>
+        </div>
+        <div class="tip-card">
+            <div class="tip-icon">📱</div>
+            <div class="tip-title">下載 App</div>
+            <div class="tip-text">Disneyland Paris App 可以睇實時排隊時間、餐廳預約、Premier Access。</div>
+        </div>
+        <div class="tip-card">
+            <div class="tip-icon">💳</div>
+            <div class="tip-title">Premier Access</div>
+            <div class="tip-text">付費免排隊服務。熱門設施 €15-20/個。時間有限建議買 Hyperspace Mountain。</div>
+        </div>
+        <div class="tip-card">
+            <div class="tip-icon">🍽️</div>
+            <div class="tip-title">食飯時間</div>
+            <div class="tip-text">避開 12:00-14:00 高峰期。建議 11:00 或 15:00 食。可以預先 App 預約餐廳。</div>
+        </div>
+        <div class="tip-card">
+            <div class="tip-icon">🧥</div>
+            <div class="tip-title">穿著建議</div>
+            <div class="tip-text">12月巴黎好凍！著多層衫，戴帽手套。行成日腳會攰，著舒服波鞋！</div>
+        </div>
+        <div class="tip-card">
+            <div class="tip-icon">🎆</div>
+            <div class="tip-title">煙花最佳位置</div>
+            <div class="tip-text">Castle Stage 前面中央位置最佳。提早 45 分鐘霸位！</div>
+        </div>
+    </div>
+
+    <!-- Suggested Schedule -->
+    <h2 class="section-title">📋 建議一日時間表</h2>
+    
+    <table class="schedule-table">
+        <tr>
+            <th>時間</th>
+            <th>活動</th>
+            <th>地點</th>
+        </tr>
+        <tr>
+            <td>09:30</td>
+            <td>入園，衝 Crush's Coaster</td>
+            <td>Walt Disney Studios</td>
+        </tr>
+        <tr>
+            <td>10:30</td>
+            <td>Ratatouille</td>
+            <td>Walt Disney Studios</td>
+        </tr>
+        <tr>
+            <td>11:30</td>
+            <td>Avengers Campus 探索</td>
+            <td>Walt Disney Studios</td>
+        </tr>
+        <tr>
+            <td>12:30</td>
+            <td>午餐 @ Bistrot Chez Rémy</td>
+            <td>Walt Disney Studios</td>
+        </tr>
+        <tr>
+            <td>14:00</td>
+            <td>轉去 Disneyland Park</td>
+            <td>—</td>
+        </tr>
+        <tr>
+            <td>14:30</td>
+            <td>Hyperspace Mountain</td>
+            <td>Discoveryland</td>
+        </tr>
+        <tr>
+            <td>15:30</td>
+            <td>Big Thunder Mountain</td>
+            <td>Frontierland</td>
+        </tr>
+        <tr>
+            <td>16:30</td>
+            <td>Pirates of the Caribbean</td>
+            <td>Adventureland</td>
+        </tr>
+        <tr>
+            <td>17:30</td>
+            <td>城堡打卡 + 小鎮大街購物</td>
+            <td>Main Street</td>
+        </tr>
+        <tr>
+            <td>19:00</td>
+            <td>晚餐</td>
+            <td>任選餐廳</td>
+        </tr>
+        <tr>
+            <td>20:30</td>
+            <td>霸煙花位置</td>
+            <td>城堡前</td>
+        </tr>
+        <tr>
+            <td>21:00</td>
+            <td>🎆 煙花表演</td>
+            <td>城堡前</td>
+        </tr>
+        <tr>
+            <td>22:00</td>
+            <td>回程</td>
+            <td>RER A</td>
+        </tr>
+    </table>
+
+</main>
+
+<footer>
+    Have a magical day! ✨🏰
+</footer>
+
+<script>
+    function showPark(parkId) {
+        // Hide all park contents
+        document.querySelectorAll('.park-content').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.park-tab').forEach(el => el.classList.remove('active'));
+        
+        // Show selected park
+        document.getElementById(parkId).classList.add('active');
+        event.target.classList.add('active');
+    }
+</script>
+
+</body>
+</html>
