@@ -83,6 +83,7 @@
         chartier: { lat: 48.8719, lng: 2.3431, title: "Bouillon Chartier" },
         gare_lyon: { lat: 48.8443, lng: 2.3744, title: "Gare de Lyon" },
         bercy_museum: { lat: 48.8333, lng: 2.3879, title: "遊樂園博物館" },
+        opera: { lat: 48.8720, lng: 2.3316, title: "巴黎歌劇院 (Palais Garnier)" },
         montaigne_ave: { lat: 48.8660, lng: 2.3040, title: "蒙田大道" },
         alma_bridge: { lat: 48.8638, lng: 2.3021, title: "阿爾瑪橋" },
         home: home
@@ -187,18 +188,18 @@
             ]
         },
         {
-            day: 5, date: "12月28", fullDate: "12/28 (六)", title: "復古遊樂園 & 終極購物",
+            day: 5, date: "12月28", fullDate: "12/28 (六)", title: "歌劇院 & 終極購物",
             steps: [
                 {
-                    time: "09:30", loc: "home", name: "出發", desc: "步行至 Poissonnière 搭地鐵", type: "transport"
+                    time: "09:30", loc: "home", name: "出發", desc: "步行前往歌劇院（超近！）", type: "transport"
                 },
                 {
-                    time: "10:00", loc: "bercy_museum", name: "遊樂園博物館", desc: "Musée des Arts Forains 復古遊樂場！🎠", type: "highlight",
-                    transit: { time: "25分鐘", mode: "🚇 地鐵 14 號線" }
+                    time: "10:00", loc: "opera", name: "巴黎歌劇院", desc: "Palais Garnier 華麗內部必睇！🎭", type: "highlight",
+                    transit: { time: "12分鐘", mode: "🚶 步行" }
                 },
                 {
-                    time: "13:00", loc: "marais", name: "瑪黑區", desc: "Supreme / Kith 潮牌掃貨，慢慢行", type: "shopping",
-                    transit: { time: "20分鐘", mode: "🚇 地鐵 1 號線" }
+                    time: "12:30", loc: "marais", name: "瑪黑區", desc: "Supreme / Kith 潮牌掃貨，慢慢行", type: "shopping",
+                    transit: { time: "15分鐘", mode: "🚇 地鐵 7 號線" }
                 },
                 {
                     time: "16:30", loc: "lafayette", name: "老佛爺百貨", desc: "週日營業 11:00-20:00，穹頂必睇！", type: "shopping",
